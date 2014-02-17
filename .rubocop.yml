@@ -1,0 +1,6 @@
+LineLength:
+  Max: 119
+TrailingWhitespace:
+  Enabled: false
+TrailingBlankLines:
+  Enabled: false
