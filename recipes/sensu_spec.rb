@@ -5,5 +5,5 @@ sensu_spec "logstash-forwarder config" do
 end
 
 sensu_spec "logstash-forwarder process" do
-  command "check_procs -C logstash-forwarder -c 1:1"
+  command "check_procs -C logstash-forwar -c 1:1"
 end
