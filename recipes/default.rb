@@ -38,6 +38,7 @@ when 'debian'
 
   dpkg_package "#{file}" do
     source "#{Chef::Config[:file_cache_path]}/#{file}"
+    notifies :restart, 'service[logstash-forwarder]'
   end
 
 when 'rhel'
@@ -51,10 +52,17 @@ when 'rhel'
 
   rpm_package "#{file}" do
     source "#{Chef::Config[:file_cache_path]}/#{file}"
+    notifies :restart, 'service[logstash-forwarder]'
+  end
+
+  cookbook_file '/etc/init.d/logstash-forwarder' do
+    owner 'root'
+    group 'root'
+    mode 0755
+    source 'logstash-forwarder-init-rhel'
+    notifies :restart, 'service[logstash-forwarder]'
   end
 end
-
-
 
 require 'json'
 
@@ -70,3 +78,5 @@ service 'logstash-forwarder' do
   supports :status => true, :restart => true
   action [ :enable, :start ]
 end
+
+
