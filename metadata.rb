@@ -1,6 +1,6 @@
 name             'logstash_forwarder'
-maintainer       'Burberry, LTD'
-maintainer_email 'fraser.scott@burberry.com
+maintainer       'zeroXten'
+maintainer_email 'fraser.scott@gmail.com'
 '
 license          'MIT'
 description      'Installs/Configures logstash_forwarder'

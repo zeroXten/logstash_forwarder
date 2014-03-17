@@ -2,7 +2,7 @@
 # Cookbook Name:: logstash_forwarder
 # Recipe:: default
 #
-# Copyright (C) 2014 Burberry, LTD
+# Copyright (C) 2014 zeroXten
 # 
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
