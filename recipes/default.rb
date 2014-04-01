@@ -42,6 +42,12 @@ when 'debian'
   end
 
 when 'rhel'
+
+  # Go doesn't place nice with older RHEL
+  if (node[:platform_version].split('.').map{|s|s.to_i} <=> "5.7".split('.').map{|s|s.to_i}) < 0
+    return
+  end
+
   file = "logstash-forwarder-#{node['logstash_forwarder']['version']}-1.x86_64.rpm"
 
   cookbook_file "#{Chef::Config[:file_cache_path]}/#{file}" do
