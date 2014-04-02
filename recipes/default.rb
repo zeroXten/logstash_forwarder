@@ -72,11 +72,18 @@ end
 
 require 'json'
 
+# Bloody ugly
+config = { 'network' => { 'servers' => node['logstash_forwarder']['config']['network']['servers'] }, 'files' => [] }
+node['logstash_forwarder']['config']['files'].each_pair do |name,value|
+  config['files'] << { 'paths' => value['paths'].map { |k,v| k if v }, 'fields' => value['fields'] }
+end
+
+
 file node['logstash_forwarder']['config_file'] do
   owner node['logstash_forwarder']['user']
   group node['logstash_forwarder']['group']
   mode 0644
-  content JSON.pretty_generate(node['logstash_forwarder']['config'])
+  content JSON.pretty_generate(config)
   notifies :restart, 'service[logstash-forwarder]'
 end
 
