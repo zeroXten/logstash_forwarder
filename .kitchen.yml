@@ -17,7 +17,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[logstash_forwarder::default]
+      - recipe[logstash_forwarder::test]
       - recipe[minitest-handler]
     attributes:
 

@@ -73,7 +73,8 @@ end
 require 'json'
 
 # Bloody ugly
-config = { 'network' => { 'servers' => node['logstash_forwarder']['config']['network']['servers'] }, 'files' => [] }
+config = node['logstash_forwarder']['config'].to_hash
+config['files'] = []
 node['logstash_forwarder']['config']['files'].each_pair do |name,value|
   config['files'] << { 'paths' => value['paths'].map { |k,v| k if v }, 'fields' => value['fields'] }
 end
