@@ -36,5 +36,4 @@ node.normal['logstash_forwarder']['config']['network']['ssl certificate'] = "#{C
 node.normal['logstash_forwarder']['config']['network']['ssl key'] = "#{Chef::Config[:file_cache_path]}/test.key"
 node.normal['logstash_forwarder']['config']['network']['ssl ca'] = "#{Chef::Config[:file_cache_path]}/test.ca"
 
-include_recipe 'logstash_forwarder::sensu_spec'
 include_recipe 'logstash_forwarder::default'

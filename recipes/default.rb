@@ -24,8 +24,6 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe 'logstash_forwarder::sensu_spec'
-
 case node['platform_family']
 when 'debian'
   file = "logstash-forwarder_#{node['logstash_forwarder']['version']}_amd64.deb"
@@ -93,4 +91,4 @@ service 'logstash-forwarder' do
   action [ :enable, :start ]
 end
 
-
+include_recipe 'logstash_forwarder::spec'
