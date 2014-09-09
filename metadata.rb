@@ -5,6 +5,6 @@ maintainer_email 'fraser.scott@gmail.com'
 license          'MIT'
 description      'Installs/Configures logstash_forwarder'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.3.0'
+version          '1.4.0'
 
-depends 'sensu_spec', '~> 0.7'
+depends 'sensu_spec', '~> 0.9'
