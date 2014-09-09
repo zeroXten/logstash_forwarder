@@ -28,7 +28,8 @@ case node['platform_family']
 when 'debian'
   file = "logstash-forwarder_#{node['logstash_forwarder']['version']}_amd64.deb"
 
-  cookbook_file "#{Chef::Config[:file_cache_path]}/#{file}" do
+  remote_file "#{Chef::Config[:file_cache_path]}/#{file}" do
+    source "#{node.logstash_forwarder.files_base}/default/#{file}"
     owner "root"
     group "root"
     mode 0644
@@ -48,7 +49,8 @@ when 'rhel'
 
   file = "logstash-forwarder-#{node['logstash_forwarder']['version']}-1.x86_64.rpm"
 
-  cookbook_file "#{Chef::Config[:file_cache_path]}/#{file}" do
+  remote_file "#{Chef::Config[:file_cache_path]}/#{file}" do
+    source "#{node.logstash_forwarder.files_base}/default/#{file}"
     owner "root"
     group "root"
     mode 0644
