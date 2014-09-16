@@ -29,7 +29,7 @@ when 'debian'
   file = "logstash-forwarder_#{node['logstash_forwarder']['version']}_amd64.deb"
 
   remote_file "#{Chef::Config[:file_cache_path]}/#{file}" do
-    source "#{node.logstash_forwarder.files_base}/default/#{file}"
+    source "#{node.logstash_forwarder.files_base}/#{file}"
     owner "root"
     group "root"
     mode 0644
@@ -47,10 +47,11 @@ when 'rhel'
     return
   end
 
+  # Need to handle Centos 5
   file = "logstash-forwarder-#{node['logstash_forwarder']['version']}-1.x86_64.rpm"
 
   remote_file "#{Chef::Config[:file_cache_path]}/#{file}" do
-    source "#{node.logstash_forwarder.files_base}/default/#{file}"
+    source "#{node.logstash_forwarder.files_base}/#{file}"
     owner "root"
     group "root"
     mode 0644
@@ -72,13 +73,11 @@ end
 
 require 'json'
 
-# Bloody ugly
 config = node['logstash_forwarder']['config'].to_hash
 config['files'] = []
 node['logstash_forwarder']['config']['files'].each_pair do |name,value|
   config['files'] << { 'paths' => value['paths'].map { |k,v| k if v }, 'fields' => value['fields'] }
 end
-
 
 file node['logstash_forwarder']['config_file'] do
   owner node['logstash_forwarder']['user']
