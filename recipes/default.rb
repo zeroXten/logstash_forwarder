@@ -26,50 +26,30 @@
 
 case node['platform_family']
 when 'debian'
-  file = "logstash-forwarder_#{node['logstash_forwarder']['version']}_amd64.deb"
-
-  remote_file "#{Chef::Config[:file_cache_path]}/#{file}" do
-    source "#{node.logstash_forwarder.files_base}/#{file}"
-    owner "root"
-    group "root"
-    mode 0644
+  apt_repository 'logstash-forwarder' do
+    uri 'http://packages.elasticsearch.org/logstashforwarder/debian'
+    components ['stable','main']
+    key 'http://packages.elasticsearch.org/GPG-KEY-elasticsearch'
   end
 
-  dpkg_package "#{file}" do
-    source "#{Chef::Config[:file_cache_path]}/#{file}"
-    notifies :restart, 'service[logstash-forwarder]'
-  end
-
+  package 'logstash-forwarder'
 when 'rhel'
-
-  # Go doesn't place nice with older RHEL
-  if (node[:platform_version].split('.').map{|s|s.to_i} <=> "5.7".split('.').map{|s|s.to_i}) < 0
-    return
-  end
-
-  # Need to handle Centos 5
-  file = "logstash-forwarder-#{node['logstash_forwarder']['version']}-1.x86_64.rpm"
-
-  remote_file "#{Chef::Config[:file_cache_path]}/#{file}" do
-    source "#{node.logstash_forwarder.files_base}/#{file}"
-    owner "root"
-    group "root"
-    mode 0644
-  end
-
-  rpm_package "#{file}" do
-    source "#{Chef::Config[:file_cache_path]}/#{file}"
-    notifies :restart, 'service[logstash-forwarder]'
+  yum_repository 'logstash-forwarder' do
+    description 'logstash forwarder'
+    baseurl 'http://packages.elasticsearch.org/logstashforwarder/centos'
+    gpgkey 'http://packages.elasticsearch.org/GPG-KEY-elasticsearch'
   end
 
   cookbook_file '/etc/init.d/logstash-forwarder' do
+    source 'logstash-forwarder-init-rhel'
     owner 'root'
     group 'root'
     mode 0755
-    source 'logstash-forwarder-init-rhel'
-    notifies :restart, 'service[logstash-forwarder]'
   end
+
+  package 'logstash-forwarder'
 end
+
 
 require 'json'
 
@@ -91,5 +71,6 @@ service 'logstash-forwarder' do
   supports :status => true, :restart => true
   action [ :enable, :start ]
 end
+
 
 include_recipe 'logstash_forwarder::spec'
