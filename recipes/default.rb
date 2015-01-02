@@ -72,5 +72,6 @@ service 'logstash-forwarder' do
   action [ :enable, :start ]
 end
 
-
-include_recipe 'logstash_forwarder::spec'
+if node['logstash_forwarder']['enable_spec']
+  include_recipe 'logstash_forwarder::spec'
+end
