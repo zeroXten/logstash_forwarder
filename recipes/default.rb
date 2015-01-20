@@ -33,6 +33,12 @@ when 'debian'
   end
 
   package 'logstash-forwarder'
+  template '/etc/init.d/logstash-forwarder' do
+    source 'logstash-forwarder-init-deb.erb'
+    owner 'root'
+    group 'root'
+    mode 0755
+  end
 when 'rhel'
   yum_repository 'logstash-forwarder' do
     description 'logstash forwarder'
