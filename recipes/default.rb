@@ -38,6 +38,7 @@ when 'debian'
     owner 'root'
     group 'root'
     mode 0755
+    notifies :restart, 'service[logstash-forwarder]'
   end
 when 'rhel'
   yum_repository 'logstash-forwarder' do
