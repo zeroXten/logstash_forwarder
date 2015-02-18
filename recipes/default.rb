@@ -27,7 +27,7 @@
 case node['platform_family']
 when 'debian'
   apt_repository 'logstash-forwarder' do
-    uri 'http://apt.arvados.org/debian'
+    uri 'http://apt.arvados.org'
     components ['wheezy','main']
     key '1078ECD7'
   end
