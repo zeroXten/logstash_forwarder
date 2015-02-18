@@ -27,11 +27,10 @@
 case node['platform_family']
 when 'debian'
   apt_repository 'logstash-forwarder' do
-    uri 'http://packages.elasticsearch.org/logstashforwarder/debian'
-    components ['stable','main']
-    key 'http://packages.elasticsearch.org/GPG-KEY-elasticsearch'
+    uri 'http://apt.arvados.org'
+    components ['wheezy','main']
+    key '1078ECD7'
   end
-
   package 'logstash-forwarder'
   template '/etc/init.d/logstash-forwarder' do
     source 'logstash-forwarder-init-deb.erb'
