@@ -1,4 +1,5 @@
 default.logstash_forwarder.version = '0.3.1'
+default.logstash_forwarder.enable_spec = true
 default.logstash_forwarder.config_file = '/etc/logstash-forwarder'
 default.logstash_forwarder.user = 'root'
 default.logstash_forwarder.group = 'root'
