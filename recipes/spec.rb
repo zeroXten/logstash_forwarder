@@ -1,4 +1,3 @@
-include_recipe 'sensu_spec'
 
 describe 'logstash-forwarder' do
   describe 'command' do
