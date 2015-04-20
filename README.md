@@ -1,11 +1,1 @@
-# logstash_forwarder cookbook
-
-# Requirements
-
-# Usage
-
-# Attributes
-
-# Recipes
-
-# Author
+This cookbook has been deprecated in favour of https://github.com/parallels-cookbooks/cookbook-logstash-forwarder
